@@ -19,7 +19,7 @@ const Navbar = () => {
             {!isLoged && (
               <div className="flex items-center gap-4">
                 <Link
-                  to="/login"
+                  to="/"
                   className="text-gray-300 hover:text-white transition-colors px-4 py-2"
                 >
                   Iniciar Sesión
@@ -41,7 +41,7 @@ const Navbar = () => {
                   <Link to="/create">Crear</Link>
                 </div>
                 <button onClick={logOut} className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg transition-all">
-                  <Link to="/login">Cerrar Sesión</Link>
+                  <Link to="/">Cerrar Sesión</Link>
                 </button>
               </div>
             )}
