@@ -54,7 +54,7 @@ const CreateMovieView = () => {
           background: "#252836",
           color: "#fff"
         }).then(() => {
-          navigate('/');
+          navigate('/catalog');
         });
       }
     } catch (err) {

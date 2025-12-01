@@ -35,7 +35,7 @@ const Navbar = () => {
             {isLoged && (
               <div className='flex items-center gap-4'>
                 <div className="text-gray-300 hover:text-white transition-colors">
-                  <Link to="/">Catálogo</Link>
+                  <Link to="/catalog">Catálogo</Link>
                 </div>
                 <div className="text-gray-300 hover:text-white transition-colors">
                   <Link to="/create">Crear</Link>

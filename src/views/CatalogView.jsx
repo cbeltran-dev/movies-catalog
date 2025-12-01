@@ -61,7 +61,7 @@ const CatalogView = () => {
           <MovieCard 
             key={`${movie.name}-${index}`} 
             movie={movie}
-            onDelete={handleMovieDeleted} // ✅ Agregado onDelete
+            onDelete={handleMovieDeleted}
           />
         ))}
       </div>

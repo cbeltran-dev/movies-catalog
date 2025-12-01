@@ -23,7 +23,7 @@ export default function LoginView() {
 
       const loginOK = await loginUser(data.email, data.password);
       if (loginOK) {
-        navigate('/');
+        navigate('/catalog');
       } else {
         setLoginError("Usuario o contraseña incorrectos.");
       }

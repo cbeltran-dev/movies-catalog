@@ -13,11 +13,11 @@ const App = () => {
     <div className="min-h-screen bg-[#1a1d29]">
       <Navbar />
       <Routes>
-        <Route path="/" element={<CatalogView/> }/>
-        <Route path="/login" element={<AuthRedirect> <LoginView /> </AuthRedirect>} />
-        <Route path="/register" element={<AuthRedirect> <RegisterView /> </AuthRedirect>}/>
-        <Route path="/create" element={<CreateMovieView/>} />
-        <Route path="/update" element={<UpdateMovieView/>} />
+        <Route path="/" element={<AuthRedirect> <LoginView /> </AuthRedirect>} />
+        <Route path="/catalog" element={<CatalogView />} />
+        <Route path="/register" element={<AuthRedirect> <RegisterView /> </AuthRedirect>} />
+        <Route path="/create" element={<CreateMovieView />} />
+        <Route path="/update" element={<UpdateMovieView />} />
       </Routes>
       <ToastContainer />
     </div>
