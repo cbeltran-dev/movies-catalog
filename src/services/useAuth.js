@@ -5,15 +5,17 @@ import axios from "axios"
 
 
 const KEY_AUTH = "auth_token"
-
+const URI= import.meta.env.VITE_API_URI;
 const useAuth = create((set) => ({
+  
   user: getStorage(KEY_AUTH)?.user || null,
   token: getStorage(KEY_AUTH)?.user || null,
   isLoged: getStorage(KEY_AUTH)?.user || false,
-
+  
   registerUser: async (userInfo) => {
+    
     try {
-      const response = await axios.post("http://localhost:8080/api/v1/user/save/admin", userInfo);
+      const response = await axios.post(`${URI}/user/save/admin`, userInfo);
       if (response.status === 201) {
         toast.success("Usuario registrado");
         return true;
@@ -26,8 +28,8 @@ const useAuth = create((set) => ({
   },
   loginUser: async(email, password) => {
     try {
-      const URL = "http://localhost:8080/api/v1/user/login";
-      const response = await axios.post(URL, {username: email, password: password });
+      // const URL = "http://localhost:8080/api/v1/user/login";
+      const response = await axios.post(`${URI}/user/login`, {username: email, password: password });
       // console.log("Response:", response);
       if (response.status === 200) {
         // const { token, username } = response.data;

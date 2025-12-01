@@ -6,7 +6,7 @@ import { movieService } from '../services/movieService';
 
 const CreateMovieView = () => {
   const navigate = useNavigate();
-  const { data: categoriesData } = useGetAxios('http://localhost:8080/api/v1/categories/get');
+  const { data: categoriesData } = useGetAxios(`${import.meta.env.VITE_API_URI}/categories/get`);
   const availableCategories = categoriesData?.data || [];
 
   const [formData, setFormData] = useState({

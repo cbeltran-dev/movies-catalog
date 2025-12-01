@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:8080/api/v1';
+// const BASE_URL = 'http://localhost:8080/api/v1';
+const URI = import.meta.env.VITE_API_URI;
 
 const getToken = () => {
   const authData = localStorage.getItem('auth_token');
@@ -14,7 +15,7 @@ export const movieService = {
   create: async (movieData) => {
   const token = getToken();
   try {
-    const response = await axios.post(`${BASE_URL}/movie/create`, movieData, {
+    const response = await axios.post(`${URI}/movie/create`, movieData, {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
@@ -29,7 +30,7 @@ export const movieService = {
   update: async (id, movieData) => {
     const token = getToken();
     try {
-      const response = await axios.put(`${BASE_URL}/movie/update/${id}`, movieData, {
+      const response = await axios.put(`${URI}/movie/update/${id}`, movieData, {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
@@ -44,7 +45,7 @@ export const movieService = {
   delete: async (name) => {
     const token = getToken();
     try {
-      const response = await axios.patch(`${BASE_URL}/movie/deletebyname/${name}`, {}, {
+      const response = await axios.patch(`${URI}/movie/deletebyname/${name}`, {}, {
       headers: { 'Authorization': `Bearer ${token}` }
     });
 
