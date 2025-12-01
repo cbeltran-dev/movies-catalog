@@ -5,9 +5,10 @@ import MovieCard from '../components/MovieCard';
 const CatalogView = () => {
   const [page, setPage] = useState(0);
   const [refresh, setRefresh] = useState(0);
+  const URI= import.meta.env.VITE_API_URI;
 
   const { data, error } = useGetAxios(
-    `http://localhost:8080/api/v1/movie/admin/search?name=&category=&page=${page}&size=9&direction=DESC&property=releaseYear&refresh=${refresh}` // ✅ Agregado &refresh=${refresh}
+    `${URI}/movie/admin/search?name=&category=&page=${page}&size=9&direction=DESC&property=releaseYear&refresh=${refresh}`
   );
   
   const apiData = data?.data;

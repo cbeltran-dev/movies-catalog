@@ -20,9 +20,11 @@ const useGetAxios = (url) => {
           headers: {
             'Authorization': `Bearer ${token}`
           }
+          
         });
         setData(response.data);
         setError(null);
+        
       } catch (error) {
         console.log('Error procesando JWT:', error.message);
         setError(error);
