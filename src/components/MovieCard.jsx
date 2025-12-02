@@ -1,4 +1,4 @@
-import { movieService } from '../services/movieService';
+import movieService from '../services/movieService';
 import { Link } from "react-router-dom";
 import Swal from 'sweetalert2';
 import { Flip, toast } from 'react-toastify';

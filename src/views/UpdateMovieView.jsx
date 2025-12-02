@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import useGetAxios from '../services/useGetAxios';
-import { movieService } from '../services/movieService';
+import movieService from '../services/movieService';
 
 const UpdateMovieView = () => {
   const navigate = useNavigate();
