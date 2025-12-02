@@ -3,8 +3,7 @@ import useAuth from "../services/useAuth"
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
-
-export default function LoginView() {
+  const RegisterView = () => {
 
   const { registerUser } = useAuth();
   const navigate = useNavigate();
@@ -96,3 +95,5 @@ export default function LoginView() {
     </div>
   );
 }
+
+export default RegisterView;

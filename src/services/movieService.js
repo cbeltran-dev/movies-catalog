@@ -11,7 +11,7 @@ const getToken = () => {
   return JSON.parse(authData).token;
 };
 
-export const movieService = {
+const movieService = {
   create: async (movieData) => {
   const token = getToken();
   try {
@@ -55,3 +55,5 @@ export const movieService = {
     }
   }
 };
+
+export default movieService;

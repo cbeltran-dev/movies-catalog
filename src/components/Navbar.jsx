@@ -11,7 +11,7 @@ const Navbar = () => {
     <nav className="bg-black/30 backdrop-blur-md border-b border-purple-500/20 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          <Link to="/" className="flex items-center gap-3 ">
+          <Link to="/catalog" className="flex items-center gap-3 ">
             <Film className="w-8 h-8 text-purple-400" />
             <h1 className="text-2xl font-bold text-white">CineHub</h1>
           </Link>

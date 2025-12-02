@@ -7,6 +7,7 @@ import AuthRedirect from "./components/AuthRedirect"
 import RegisterView from "./views/RegisterView"
 import CreateMovieView from "./views/CreateMovieView"
 import UpdateMovieView from "./views/UpdateMovieView"
+import ProtectedRoute from "./components/ProtectedRoute"
 
 const App = () => {
   return (
@@ -14,10 +15,10 @@ const App = () => {
       <Navbar />
       <Routes>
         <Route path="/" element={<AuthRedirect> <LoginView /> </AuthRedirect>} />
-        <Route path="/catalog" element={<CatalogView />} />
+        <Route path="/catalog" element={<ProtectedRoute><CatalogView /></ProtectedRoute>} />
         <Route path="/register" element={<AuthRedirect> <RegisterView /> </AuthRedirect>} />
-        <Route path="/create" element={<CreateMovieView />} />
-        <Route path="/update" element={<UpdateMovieView />} />
+        <Route path="/create" element={<ProtectedRoute><CreateMovieView /></ProtectedRoute>} />
+        <Route path="/update" element={<ProtectedRoute><UpdateMovieView /></ProtectedRoute>} />
       </Routes>
       <ToastContainer />
     </div>
