@@ -88,6 +88,22 @@ const LoginView = () => {
                   required: "Este campo es obligatorio"
                 })}
               />
+              <div className="flex items-center gap-2 mt-2">
+                <input
+                  type="checkbox"
+                  id="showPassword"
+                  checked={showPassword}
+                  onChange={(e) => setShowPassword(e.target.checked)}
+                  className="w-4 h-4 text-purple-600 bg-gray-700 border-gray-600 rounded focus:ring-purple-500"
+                />
+                <label
+                  htmlFor="showPassword"
+                  className="text-gray-400 text-sm cursor-pointer"
+                >
+                  Mostrar contraseña
+                </label>
+              </div>
+
               {errors && (<span className="text-xs text-red-600">{errors?.password?.message}</span>)}
             </div>
             <button

@@ -3,53 +3,26 @@ import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import useGetAxios from '../services/useGetAxios';
 import movieService from '../services/movieService'
+import { useForm } from 'react-hook-form';
 
 const CreateMovieView = () => {
   const navigate = useNavigate();
   const { data: categoriesData } = useGetAxios(`${import.meta.env.VITE_API_URI}/categories/get`);
   const availableCategories = categoriesData?.data || [];
 
-  const [formData, setFormData] = useState({
-    name: '',
-    releaseYear: '',
-    synopsis: '',
-    categories: [],
-    img: ''
-  });
+  const { register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm();
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const addCategory = (category) => {
-    if (!formData.categories.includes(category)) {
-      setFormData(prev => ({
-        ...prev,
-        categories: [...prev.categories, category]
-      }));
-    }
-  };
-
-  const removeCategory = (categoryToRemove) => {
-    setFormData(prev => ({
-      ...prev,
-      categories: prev.categories.filter(cat => cat !== categoryToRemove)
-    }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const onSubmit = async (data) => {
     try {
-      const response = await movieService.create(formData);
-      if (response.success) {
+      const saveOk = await movieService.create(data);
+      if (saveOk) {
         Swal.fire({
           icon: "success",
           title: "Película Creada",
-          text: `${formData.name} se creó exitosamente`,
+          text: `${data.name} se creó exitosamente`,
           confirmButtonColor: "#9333ea",
           background: "#252836",
           color: "#fff"
@@ -67,7 +40,7 @@ const CreateMovieView = () => {
         color: "#fff"
       });
     }
-  };
+  }
 
   return (
     <div className="min-h-screen bg-[#1a1d29] py-8 px-4">
@@ -75,8 +48,7 @@ const CreateMovieView = () => {
         <div className="bg-[#252836] rounded-lg shadow-xl p-8">
           <h2 className="text-3xl font-bold text-white mb-6">Crear Nueva Película</h2>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Nombre */}
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             <div>
               <label className="block text-gray-400 text-sm mb-2">
                 Nombre de la película *
@@ -84,31 +56,31 @@ const CreateMovieView = () => {
               <input
                 type="text"
                 name="name"
-                value={formData.name}
-                onChange={handleInputChange}
                 placeholder="Ej: Inception"
                 className="w-full bg-[#1a1d29] border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-colors"
-                required
+                {...register("name", {
+                  required: "Este campo es obligatorio"
+                })}
               />
+              {errors && (<span className="text-xs text-red-600">{errors?.name?.message}</span>)}
             </div>
 
-            {/* Sinopsis */}
             <div>
               <label className="block text-gray-400 text-sm mb-2">
                 Sinopsis *
               </label>
               <textarea
                 name="synopsis"
-                value={formData.synopsis}
-                onChange={handleInputChange}
                 placeholder="Describe la trama de la película..."
                 rows="4"
                 className="w-full bg-[#1a1d29] border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-colors resize-none"
-                required
+                {...register("synopsis", {
+                  required: "Este campo es obligatorio"
+                })}
               />
+              {errors && (<span className="text-xs text-red-600">{errors?.synopsis?.message}</span>)}
             </div>
 
-            {/* Año de estreno */}
             <div>
               <label className="block text-gray-400 text-sm mb-2">
                 Año de estreno *
@@ -116,16 +88,16 @@ const CreateMovieView = () => {
               <input
                 type="number"
                 name="releaseYear"
-                value={formData.releaseYear}
-                onChange={handleInputChange}
                 placeholder="Ej: 2010"
                 min="1900"
                 className="w-full bg-[#1a1d29] border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-colors"
-                required
+                {...register("releaseYear", {
+                  required: "Este campo es obligatorio"
+                })}
               />
+              {errors && (<span className="text-xs text-red-600">{errors?.releaseYear?.message}</span>)}
             </div>
 
-            {/* URL de imagen */}
             <div>
               <label className="block text-gray-400 text-sm mb-2">
                 URL de la imagen *
@@ -133,20 +105,19 @@ const CreateMovieView = () => {
               <input
                 type="url"
                 name="img"
-                value={formData.img}
-                onChange={handleInputChange}
                 placeholder="https://ejemplo.com/poster.jpg"
                 className="w-full bg-[#1a1d29] border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-colors"
-                required
+                {...register("img", {
+                  required: "Este campo es obligatorio"
+                })}
               />
+              {errors && (<span className="text-xs text-red-600">{errors?.img?.message}</span>)}
             </div>
 
-            {/* Categorías */}
             <div>
               <label className="block text-gray-400 text-sm mb-2">
                 Categorías *
               </label>
-
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 {availableCategories.map((category) => (
                   <label
@@ -155,14 +126,12 @@ const CreateMovieView = () => {
                   >
                     <input
                       type="checkbox"
-                      checked={formData.categories.includes(category)}
-                      onChange={(e) => {
-                        if (e.target.checked) {
-                          addCategory(category);
-                        } else {
-                          removeCategory(category);
-                        }
-                      }}
+                      value={category}
+                      {...register("categories", {
+                        validate: (value) =>
+                          (Array.isArray(value) && value.length > 0) ||
+                          "Debes seleccionar al menos una categoría"
+                      })}
                       className="w-4 h-4 accent-purple-600 cursor-pointer"
                     />
                     <p className="text-gray-300 text-sm group-hover:text-purple-400 transition-colors">
@@ -171,9 +140,13 @@ const CreateMovieView = () => {
                   </label>
                 ))}
               </div>
+              {errors?.categories && (
+                <span className="text-xs text-red-600 block mt-2">
+                  {errors.categories.message}
+                </span>
+              )}
             </div>
 
-            {/* Botones */}
             <div className="flex gap-4 pt-4">
               <button
                 type="button"

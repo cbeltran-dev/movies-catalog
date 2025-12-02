@@ -15,7 +15,6 @@ const MovieCard = ({ movie, onDelete }) => {
     categories: movie.categories
   };
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 

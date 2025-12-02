@@ -4,26 +4,22 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
   const RegisterView = () => {
-
   const { registerUser } = useAuth();
   const navigate = useNavigate();
-  const [registerError, setRegisterError] = useState("");
+
   const [showPassword, setShowPassword] = useState(false);
 
   const { register,
     handleSubmit,
     formState: { errors }
   } = useForm();
+
   const onSubmit = async (data) => {
-    setRegisterError("");
     try {
       const registerOK = await registerUser(data.email, data.password);
-      // console.log("usuario: ",data.email)
       if (registerOK) {
         navigate('/');
-      } else {
-        setRegisterError("Error al crear usuario");
-      }
+      } 
     } catch (error) {
       console.log(error);
     }
@@ -45,8 +41,7 @@ import { useForm } from "react-hook-form";
                 name="email"
                 placeholder="ejemplo@email.com"
                 className="w-full bg-[#1a1d29] border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-colors"
-                // ref={emailRef}
-                // required
+                
                 {...register("email", {
                   required: "Este campo es obligatorio"
                 })}
@@ -62,12 +57,25 @@ import { useForm } from "react-hook-form";
                 name="password"
                 placeholder="••••••••"
                 className="w-full bg-[#1a1d29] border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-colors"
-                // ref={passwordRef}
-                // required
                 {...register("password", {
                   required: "Este campo es obligatorio"
                 })}
               />
+              <div className="flex items-center gap-2 mt-2">
+                <input
+                  type="checkbox"
+                  id="showPassword"
+                  checked={showPassword}
+                  onChange={(e) => setShowPassword(e.target.checked)}
+                  className="w-4 h-4 text-purple-600 bg-gray-700 border-gray-600 rounded focus:ring-purple-500"
+                />
+                <label
+                  htmlFor="showPassword"
+                  className="text-gray-400 text-sm cursor-pointer"
+                >
+                  Mostrar contraseña
+                </label>
+              </div>
               {errors && (<span className="text-xs text-red-600">{errors?.password?.message}</span>)}
             </div>
             <button
@@ -76,16 +84,12 @@ import { useForm } from "react-hook-form";
             >
               Crear Usuario
             </button>
-            {registerError && (
-              <p className="text-red-600 text-xs text-center mt-0.5 -mb-3">
-                {registerError}
-              </p>
-            )}
+            
           </form>
           <div className="text-center mt-6">
             <p className="text-gray-400 text-sm">
               ¿Ya tienes cuenta?{" "}
-              <Link to="/register" className="text-purple-500 hover:text-purple-400 transition-colors">
+              <Link to="/" className="text-purple-500 hover:text-purple-400 transition-colors">
                 Iniciar Sesión...
               </Link>
             </p>
