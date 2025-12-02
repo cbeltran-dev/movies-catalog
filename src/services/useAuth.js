@@ -12,27 +12,34 @@ const useAuth = create((set) => ({
   token: getStorage(KEY_AUTH)?.user || null,
   isLoged: getStorage(KEY_AUTH)?.user || false,
   
-  registerUser: async (userInfo) => {
-    
+  registerUser: async (email, password) => {
+    const userInfo = {email: email, password: password, roleName: "admin"};
     try {
+      console.log("userInfo:", userInfo);
       const response = await axios.post(`${URI}/user/save/admin`, userInfo);
       if (response.status === 201) {
         toast.success("Usuario registrado");
         return true;
       }else{
-        throw new Error("Error al registrar usuario")
+        throw new Error(response?.data?.message)
       }
     } catch (error) {
-      console.log(error);
+      console.error("Error completo:", error);
+      toast.error(error.response?.data?.message,
+      {position: "bottom-center",
+        autoClose: 1000,
+        theme: "colored"
+      });
     }
   },
+
   loginUser: async(email, password) => {
     try {
-      // const URL = "http://localhost:8080/api/v1/user/login";
+      
       const response = await axios.post(`${URI}/user/login`, {username: email, password: password });
-      // console.log("Response:", response);
+      
       if (response.status === 200) {
-        // const { token, username } = response.data;
+        
         const token = response.data;
         saveStorage(KEY_AUTH, {token: token, user: email, isLoged: true});
         toast.success(`Bienvenido, ${email}`,{
@@ -48,7 +55,7 @@ const useAuth = create((set) => ({
       }
     } catch (error) {
       console.error("Error completo:", error);
-    toast.error(error.response?.data?.message || "Error al iniciar sesión",
+      toast.error(error.response?.data?.message || "Error al iniciar sesión",
       {position: "bottom-center",
         autoClose: 1000,
         theme: "colored"
