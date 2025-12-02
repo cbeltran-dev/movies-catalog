@@ -4,10 +4,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 
+
 const LoginView = () => {
 
-  const emailRef = useRef();
-  const passwordRef = useRef();
+  // const emailRef = useRef();
+  // const passwordRef = useRef();
   const { loginUser } = useAuth();
   const navigate = useNavigate();
   const [loginError, setLoginError] = useState("");
@@ -53,8 +54,7 @@ const LoginView = () => {
     <div className="min-h-screen flex items-center justify-center bg-[#1a1d29] p-4">
       <div className="w-full max-w-md">
         <div className="bg-[#252836] rounded-lg shadow-xl p-8">
-          <h2 className="text-2xl font-semibold text-white mb-6">Iniciar Sesión</h2>
-
+          <h2 className="text-2xl font-semibold text-white mb-6">Iniciar Sesión  </h2>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
             <div>
               <label className="block text-gray-400 text-sm mb-2">

@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import useAuth from "../services/useAuth"
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -86,7 +86,7 @@ import { useForm } from "react-hook-form";
             <p className="text-gray-400 text-sm">
               ¿Ya tienes cuenta?{" "}
               <Link to="/register" className="text-purple-500 hover:text-purple-400 transition-colors">
-                Registrate
+                Iniciar Sesión...
               </Link>
             </p>
           </div>
