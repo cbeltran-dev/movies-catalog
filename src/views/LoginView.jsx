@@ -104,7 +104,7 @@ const LoginView = () => {
           </form>
           <div className="text-center mt-6">
             <p className="text-gray-400 text-sm">
-              ¿Ya tienes cuenta?{" "}
+              ¿No tienes cuenta?{" "}
               <Link to="/register" className="text-purple-500 hover:text-purple-400 transition-colors">
                 Registrate
               </Link>
